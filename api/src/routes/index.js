@@ -1,7 +1,7 @@
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Router } = require('express');
-const { DataTypes, UUID } = require('sequelize');
+//const { DataTypes, UUID } = require('sequelize');
 require('dotenv').config();
 const axios = require('axios');
 const { Dog, Temperament } = require('../db');
@@ -139,12 +139,20 @@ router.post('/dog',async(req,res)=>{
             life_span,
             image,
             createInDb,
-            temperament
-        }) 
-        let dogDb = await Temperament.findAll({
-            where:{name:temperament}
-        });
-        await dogCreated.addTemperament(dogDb);
+           })
+           //console.log(temperament)
+        if(temperament.lenght>0){
+            temperament.forEach( async (e)=>{
+                let dogDb = await Temperament.findOne({
+                    where:{name: e}
+                });
+            }).then((data)=>{
+                console.log(data)
+                dogCreated.setTemperaments(data)
+            })
+        }
+
+        // await dogCreated.addTemperaments(dogDb);
         res.send('Creado')
     }catch(error){
         res.send(error)
