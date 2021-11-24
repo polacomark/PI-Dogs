@@ -1,14 +1,15 @@
 .containsAll{
     background-color: blue;
-    /* background-image: url('../imagen/images.jpg'); */
+    background-image: url(https://png.pngtree.com/png-vector/20191028/ourlarge/pngtree-dog-house-icon-cartoon-style-png-image_1903616.jpg);
     background-position: center; 
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
     height: 100%; 
     position:fixed;
-
 }
+
+
 .Card {
     width: 40%;
     float: left;
@@ -22,6 +23,25 @@
     background-image: url("../imagen/unnamed.jpg");
     background-repeat: no-repeat;
 }
+.created{
+    text-decoration: none;
+    color: rgb(32, 30, 82);
+    position: center;
+    background: transparent;
+    border-radius: 5px;
+    margin-top: 3px;
+    margin-left: 45%;
+    font-size: 30px;
+    font-weight: 900px;
+    width: 125px;
+    height: 30px;
+    grid-column-end: auto;
+    text-align: rgb(40, 40, 212);
+    /* cursor: pointer; */
+    background-color: #ade8f059;
+    padding: 5px;
+    
+}
 .head{
         position: ();
        
@@ -30,10 +50,32 @@
         
         font-family:'Major Mono Display', monospace ;
         color:rgb(30, 28, 173);
-        font-size:30px;
+        font-size:40px;
         text-align:left;
         font-weight: normal; 
-        text-shadow: 3px 3px 3px rgba(210, 240, 41, 0.473);
-        margin-left: 40%;
+        text-shadow: 3px 3px 3px rgba(245, 201, 56, 0.603);
+        margin-left: 37%;
       
     }
+.pagination li{
+        color: rgb(2, 22, 39);
+        display:inline-flex;
+        padding: 10px;
+        margin: 2px;
+        border: none;
+        cursor: pointer;
+        background-color: #42263e83;
+        border-radius: 10%;
+        list-style:none;
+        width: 10px;
+        height: 10px;
+        font-size: 12px;
+        align-items: center;
+    }
+/* .pagination:hover{
+        transition: 0.8s;
+        background-color: #fdf6fc73;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.377), 0 0 10px rgba(255, 255, 255, 0.377), 0 0 10px rgba(255, 255, 255, 0.377);
+        border: none;
+        color: rgb(66, 2, 45);
+    }   */

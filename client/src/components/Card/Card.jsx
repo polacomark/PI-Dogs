@@ -14,11 +14,12 @@ export default function Card({name, temperament, image, weight}) {
          </div>
            <div className={style.overlay}>
                <div className={style.text}>
-              <span>Weight:</span>
+               <span>Weight:</span>
             <h3 className={style.peso}>
               {weight} (Lb)
             </h3>
            <span>Temperament:</span>
+           
             <h2 className={style.titleTemps}>
             {temperament}
             </h2>
@@ -26,17 +27,5 @@ export default function Card({name, temperament, image, weight}) {
             </div>
         </div>
         </div>
-        // <div calssNmae='container'>
-        // <div className='card'>
-        //     <h3>{name}</h3>
-        //     <div>
-        //     <span>Temperament:</span>
-        //     <h3>{temperament}</h3>
-        //         <span>Weight:</span>
-        //     <h5>{weight}</h5>
-        //     </div>
-        //     <img className='img' src={image? image: i} alt="img not found" width="300px" height="270px"/>
-        // </div>
-        // </div>
     );
 };

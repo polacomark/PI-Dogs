@@ -69,14 +69,17 @@ dispatch(getDogs());
 
 return(
     <div className={style.constainsAll}>
-      <div classname={style.encabezado}>
+      <div >
+        <div className={style.created}>
         <button>
         <Link to='/dog'>
           AGREGAR NUEVO</Link>
           </button>
+          </div>
       <div className={style.head}>
          <h1>DOGOOGLE</h1>
         </div>
+   
         <button onClick={(e) => handleClick(e)}>
            VOLVER A CARGAR LA PAGINA
         </button>
@@ -84,9 +87,9 @@ return(
         <p>
         <SearchBar></SearchBar>
         </p>
-         
+        
         <div>
-             <select onChange={ handleOrder}>
+        <select onChange={ handleOrder}>
                 <option value="asc">Ascending order</option>
                 <option value="desc" >Descending order</option>
             </select>
@@ -102,37 +105,33 @@ return(
                 )
               })}
             </select>
-             <select onChange={(e)=>handleFilter(e)}>
+            <select onChange={(e)=>handleFilter(e)}>
                <option value="All">Todos</option>
                <option value='Created'>Creados</option>
-             </select>          
+             </select>
+             <div className={style.pagination}></div>      
              <Paginado 
                dogsPerPage={dogsPerPage} allDogs={allDogs.length} pagedTotal={pagedTotal}
                />
-               </div>
+               
+               </div> 
       
             {currentDog?.map((c)=>{  ///PREGUNTO Y MAPEO
-                return(
+               console.log(c.id)
+               return(
                   <div className={style.Card}>
                     <NavLink to={"/home" + c.id}>
-                      <Card name={c.name} image={c.image}  temperament=
-                      {c.temperament
-                        ? c.temperament
-                      : c.temperament &&
-                      c.temperament.map((t) => t.name.concat(" "))
-                      } weight={c.weight} key={c.id}/>
+                      <Card name={c.name} 
+                      image={(c.image) || null}  
+                      temperament={c.temperament}
+                       weight={c.weight} 
+                       key={c.id}
+                       />
                     </NavLink>
                     </div>
               )
             })
           }
-        {/* <div>
-        <Link to="/">
-          <button>Back</button>
-        </Link>
-        </div>  */}
-    
-    
     </div>
 
 );

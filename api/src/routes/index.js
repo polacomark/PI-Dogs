@@ -1,7 +1,7 @@
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 const { Router } = require('express');
-//const { DataTypes, UUID } = require('sequelize');
+const { DataTypes, UUID } = require('sequelize');
 require('dotenv').config();
 const axios = require('axios');
 const { Dog, Temperament } = require('../db');
@@ -30,26 +30,20 @@ const apiData=async()=>{ //función asincrónica
 //encontrar todos los perros que incluyan...
 const infoDB = async()=>{ 
     let dbDogs = await Dog.findAll({ include: Temperament });
-        dbDogs = dbDogs.map((e) => {
+    const all = dbDogs.map((e) => {
+
+           
             return {
                 id: e.dataValues.id,
                 name: e.dataValues.name,
                 height: e.dataValues.height,
                 weight: e.dataValues.weight,
                 life_span: e.dataValues.life_span,
-                temperament: e.dataValues.temperament
+                temperament: e.dataValues.temperaments.map((t) => t.name.concat(",")),
+                createInDb:e.dataValues.createInDb
             };
         });
-    // let DBinfo = await Dog.findAll({
-    //     include:{
-    //         model:Temperament,
-    //         attributes:['name'],
-    //         through:{
-    //             attributes:[]
-    //         },
-    //     }
-    // });
-    return dbDogs;
+    return all;
  };
   
 //concatenar los datos de api y los de db
@@ -102,24 +96,6 @@ router.get('/temperament',async(req,res)=>{
     res.send(allTemperaments)
 
 });
-// router.get('/temperament', async(req, res)=>{
-//     const tempApi = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=2fdfa937-4b8f-4340-b9b9-9e2d3d09c88e`)
-//     const temperaments = tempApi.data.map(el => el.temperament)
-//     const tempEach = temperaments.map(el=>{
-//         for(let i=0; i<el.length; i++)
-//             return el[i]
-//         })
-//         //console.log(tempEach)
-        
-//         tempEach.forEach(el=>{
-//             Temperament.findOrCreate({
-//                 where: { name: el}
-//             })
-//         })
-    
-//     const allTemperament = await Temperament.findAll();
-//     res.send(allTemperament);
-// })
 
 router.post('/dog',async(req,res)=>{
     let{
@@ -129,8 +105,10 @@ router.post('/dog',async(req,res)=>{
         life_span,
         image,
         createInDb,
-        temperament
+        temperament,
+        
     }=req.body //info que recibo por body
+    //console.log(req.body)
     try{
         let dogCreated=await Dog.create({
             name,
@@ -139,26 +117,30 @@ router.post('/dog',async(req,res)=>{
             life_span,
             image,
             createInDb,
-           })
-           //console.log(temperament)
-        if(temperament.lenght>0){
-            temperament.forEach( async (e)=>{
-                let dogDb = await Temperament.findOne({
-                    where:{name: e}
-                });
-            }).then((data)=>{
-                console.log(data)
-                dogCreated.setTemperaments(data)
+            
+            
+        }) 
+        console.log(temperament)
+            temperament.map( async (t) => {
+            const temp = await Temperament.findOne({
+                where: {
+                    name: t
+                }
             })
-        }
+            //console.log(temp)
+            await dogCreated.addTemperaments(temp);
 
-        // await dogCreated.addTemperaments(dogDb);
-        res.send('Creado')
-    }catch(error){
+            }) 
+          
+          res.send('Creado')
+    
+        }catch(error){
         res.send(error)
     }
     
 });
+
+
 
 router.get('/dogs/:id', async (req, res) => {
         const {id} = req.params; 
@@ -168,16 +150,21 @@ router.get('/dogs/:id', async (req, res) => {
             dogsId.length ? 
             res.status(200).send(dogsId) ://si no mensaje de error
             res.status(404).send('no se encontro')
-        }
+    
+        }    
     });   
 
 
+router.get('/todos', async (req, res) => {   
 
-module.exports={
-    apiData,
-    infoDB,
-    allDogs,
-   
-    //router
-};
+    const dogsTotal = await Dog.findAll({ include: Temperament });
+    
+    res.send(dogsTotal)
+
+})
+// module.exports={
+//     apiData,
+//     infoDB,
+//     allDogs,
+// };
 module.exports = router;

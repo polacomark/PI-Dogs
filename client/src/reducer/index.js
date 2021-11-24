@@ -1,4 +1,6 @@
 // Seteo el estado inicial
+//import axios from 'axios';
+
 const initialState = {
     dogs : [],
     allDogs : [],   

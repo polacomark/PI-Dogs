@@ -62,7 +62,9 @@ export function filterDogsCreated (payload){ //filtro por si son creados o de la
 
 
 export function postDogs(payload) { //me manda la info posteada
+        console.log(payload)
     return async function (dispatch){
+       
         var json = await axios.post("http://localhost:3001/dog/",payload); 
         
         return json;

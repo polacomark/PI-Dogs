@@ -1,0 +1,36 @@
+.all{
+    background-image: url(../imagen/unnamed.jpg);
+    background-position: center; 
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    overflow: hidden;
+    height: 100%; 
+   
+    position:fixed
+}
+.contenedor {
+    
+    text-decoration: none;
+    width: 930px;
+    height: 500px;
+    align-items: center; 
+    text-align: center;
+    background-color: rgba(241, 222, 231, 0.315);
+    justify-content:center;
+    margin-top: 70px;
+    margin-left: 200px;
+    border-radius: 5%;
+    /*justify-content:center;
+    backdrop-filter: blur 4;
+    padding-top: 10px;
+    padding-left: 10px;
+    position: fixed;
+    box-shadow: 0 0 10px rgba(128, 3, 107, 0.452), 0 0 10px rgba(128, 67, 85, 0.863), 0 0 10px rgba(255, 255, 255, 0.541); */
+}
+.image {
+    height: 300px;
+    width: 350px;
+    border-radius: 8%;
+    justify-content: center;
+}
